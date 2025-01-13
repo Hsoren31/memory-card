@@ -1,0 +1,1 @@
+/* Score board keeps track of the current score and saves the users best score */
