@@ -100,6 +100,7 @@ function Game() {
     if (score === 14) {
       setGameWon(true);
       gameOver();
+      setBestScore(15);
     }
     setClickedPokemon([...clickedPokemon, { id }]);
     shufflePokemon();

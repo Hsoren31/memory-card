@@ -3,10 +3,14 @@
 export default function Scoreboard({ score, bestScore }) {
   return (
     <div id="scoreboard">
-      <b>Current Score:</b>
-      <p>{score}</p>
-      <b>Best Score:</b>
-      <p>{bestScore}</p>
+      <div>
+        <b>Current Score:</b>
+        <p>{score}</p>
+      </div>
+      <div>
+        <b>Best Score:</b>
+        <p>{bestScore}</p>
+      </div>
     </div>
   );
 }

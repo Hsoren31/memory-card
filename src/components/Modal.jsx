@@ -6,9 +6,13 @@ export default function Modal({ resetGame, message }) {
     endText = "Game won!";
   }
   return createPortal(
-    <section id="game_over_modal">
-      <h2>{endText}</h2>
-      <button onClick={() => resetGame()}>Retry</button>
+    <section id="modal_bg">
+      <div id="modal">
+        <h2>{endText}</h2>
+        <button id="reset_game_btn" onClick={() => resetGame()}>
+          Retry
+        </button>
+      </div>
     </section>,
     document.body
   );

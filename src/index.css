@@ -1,68 +1,168 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Fonts */
+  --ff-base: "Shadows Into Light Two", serif;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --fs-300: 1rem;
+  --fs-500: 1.5rem;
+  --fs-700: 2rem;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Colors */
+  --clr-overlay: hsla(0, 0%, 9%, 0.5);
+  --clr-gray-bg: hsl(0, 0%, 92%);
+  --clr-white-bg: hsl(0, 0%, 98%);
+  --clr-highlight: hsl(44, 92%, 55%);
+  --clr-red: hsl(9, 84%, 64%);
+  --clr-text: hsl(0, 0%, 9%);
+  --clr-shadow: hsla(0, 0%, 0%, 0.3);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--clr-gray-bg);
+  color: var(--clr-text);
+
+  font-family: var(--ff-base);
+  font-size: var(--fs-300);
+
+  letter-spacing: 0.5ch;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+img {
+  display: block;
+  max-width: 100%;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+a {
+  text-decoration: none;
+  color: var(--clr-red);
+  text-shadow: 1px 1px 1px var(--clr-shadow);
 }
+
+a:hover {
+  text-decoration: underline;
+  color: var(--clr-text);
+}
+
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  cursor: grab;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-size: var(--fs-700);
+}
+
+#root {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1rem 10rem;
+  font-size: var(--fs-500);
+}
+
+footer {
+  padding: 2rem;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+#scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#scoreboard > div {
+  display: flex;
+  gap: 5px;
+}
+
+#game_board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.pokemon-card {
+  background-color: var(--clr-white-bg);
+  border: 1px solid black;
+  border-radius: 1em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+
+  transition: transform 450ms, border-color 450ms, box-shadow 450ms,
+    border-width 450ms;
+}
+
+.pokemon-card:hover {
+  cursor: grab;
+  border-color: var(--clr-highlight);
+  border-width: 2.5px;
+  box-shadow: 2px 2px 7px 0px var(--clr-shadow);
+
+  transition: transform 125ms;
+  transform: translateY(-10px);
+}
+
+#modal_bg {
+  background-color: var(--clr-overlay);
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#modal {
+  background-color: #fff;
+  font-size: var(--fs-500);
+  border-radius: 1em;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 3rem;
+}
+
+#reset_game_btn {
+  background-color: var(--clr-highlight);
+  border: none;
+  border-radius: 1em;
+  transition: transform 300ms;
+}
+
+#reset_game_btn:hover {
+  transform: scale(1.1);
 }
