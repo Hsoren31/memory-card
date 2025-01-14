@@ -1,5 +1,6 @@
 /* Here we will retrieve the pokemon data */
 import { useEffect, useState } from "react";
+import Card from "./Card";
 
 const PokemonList = [
   "pikachu",
@@ -22,9 +23,21 @@ const PokemonList = [
   name,
 }));
 
+function shuffleArray(array) {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = newArray[i];
+    newArray[i] = newArray[j];
+    newArray[j] = temp;
+  }
+
+  return newArray;
+}
+
 /*Get data from each pokemon in PokemonList */
 
-function getPokemonData() {
+function Game() {
   const [pokemonData, setPokemonData] = useState([]);
 
   useEffect(() => {
@@ -58,7 +71,18 @@ function getPokemonData() {
     fetchData();
   }, []);
 
-  return pokemonData;
+  function shufflePokemon() {
+    const shuffled = shuffleArray(pokemonData);
+    setPokemonData(shuffled);
+  }
+
+  return (
+    <div id="game_board">
+      {pokemonData.map((pokemon) => (
+        <Card {...pokemon} key={pokemon.id} handleClick={shufflePokemon} />
+      ))}
+    </div>
+  );
 }
 
-export { getPokemonData };
+export { Game };
