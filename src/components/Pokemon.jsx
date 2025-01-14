@@ -1,6 +1,7 @@
 /* Here we will retrieve the pokemon data */
 import { useEffect, useState } from "react";
 import Card from "./Card";
+import Scoreboard from "./Scoreboard";
 
 const PokemonList = [
   "pikachu",
@@ -40,6 +41,8 @@ function shuffleArray(array) {
 function Game() {
   const [pokemonData, setPokemonData] = useState([]);
   const [clickedPokemon, setClickedPokemon] = useState([]);
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,22 +80,35 @@ function Game() {
     setPokemonData(shuffled);
   }
 
+  function gameOver() {
+    console.log("Game Over");
+    if (score > bestScore) {
+      setBestScore(score);
+    }
+    setScore(0);
+    setClickedPokemon([]);
+  }
+
   function handleClick({ id }) {
     const isPresent = clickedPokemon.some((obj) => obj.id === id);
     if (isPresent) {
-      console.log("Game Over");
+      gameOver();
       return;
     }
+    setScore(score + 1);
     setClickedPokemon([...clickedPokemon, { id }]);
     shufflePokemon();
   }
 
   return (
-    <div id="game_board">
-      {pokemonData.map((pokemon) => (
-        <Card {...pokemon} key={pokemon.id} handleClick={handleClick} />
-      ))}
-    </div>
+    <>
+      <Scoreboard score={score} bestScore={bestScore} />
+      <div id="game_board">
+        {pokemonData.map((pokemon) => (
+          <Card {...pokemon} key={pokemon.id} handleClick={handleClick} />
+        ))}
+      </div>
+    </>
   );
 }
 
