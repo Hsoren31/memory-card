@@ -39,6 +39,7 @@ function shuffleArray(array) {
 
 function Game() {
   const [pokemonData, setPokemonData] = useState([]);
+  const [clickedPokemon, setClickedPokemon] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,10 +77,20 @@ function Game() {
     setPokemonData(shuffled);
   }
 
+  function handleClick({ id }) {
+    const isPresent = clickedPokemon.some((obj) => obj.id === id);
+    if (isPresent) {
+      console.log("Game Over");
+      return;
+    }
+    setClickedPokemon([...clickedPokemon, { id }]);
+    shufflePokemon();
+  }
+
   return (
     <div id="game_board">
       {pokemonData.map((pokemon) => (
-        <Card {...pokemon} key={pokemon.id} handleClick={shufflePokemon} />
+        <Card {...pokemon} key={pokemon.id} handleClick={handleClick} />
       ))}
     </div>
   );
