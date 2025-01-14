@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
 import Scoreboard from "./Scoreboard";
+import Modal from "./Modal";
 
 const PokemonList = [
   "pikachu",
@@ -43,6 +44,8 @@ function Game() {
   const [clickedPokemon, setClickedPokemon] = useState([]);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,12 +84,10 @@ function Game() {
   }
 
   function gameOver() {
-    console.log("Game Over");
     if (score > bestScore) {
       setBestScore(score);
     }
-    setScore(0);
-    setClickedPokemon([]);
+    setShowModal(true);
   }
 
   function handleClick({ id }) {
@@ -96,8 +97,19 @@ function Game() {
       return;
     }
     setScore(score + 1);
+    if (score === 14) {
+      setGameWon(true);
+      gameOver();
+    }
     setClickedPokemon([...clickedPokemon, { id }]);
     shufflePokemon();
+  }
+
+  function resetGame() {
+    setShowModal(false);
+    setClickedPokemon([]);
+    setScore(0);
+    setGameWon(false);
   }
 
   return (
@@ -108,6 +120,7 @@ function Game() {
           <Card {...pokemon} key={pokemon.id} handleClick={handleClick} />
         ))}
       </div>
+      {showModal && <Modal resetGame={resetGame} message={gameWon} />}
     </>
   );
 }
