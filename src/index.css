@@ -87,6 +87,12 @@ footer {
   justify-content: center;
 }
 
+#loading {
+  font-size: 2rem;
+  align-self: center;
+  margin-top: 3em;
+}
+
 #scoreboard {
   display: flex;
   justify-content: center;

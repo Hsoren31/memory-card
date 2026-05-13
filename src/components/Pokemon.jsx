@@ -46,6 +46,7 @@ function Game() {
   const [bestScore, setBestScore] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,7 +69,7 @@ function Game() {
             };
           })
         );
-
+        setLoading(false);
         setPokemonData(results);
       } catch (error) {
         console.error(error.message);
@@ -111,6 +112,10 @@ function Game() {
     setClickedPokemon([]);
     setScore(0);
     setGameWon(false);
+  }
+
+  if (loading) {
+    return <h3 id="loading">Loading...</h3>;
   }
 
   return (
