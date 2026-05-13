@@ -76,13 +76,14 @@ header {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin: 1rem 10rem;
+  padding: 1rem;
   font-size: var(--fs-500);
 }
 
 footer {
   padding: 2rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
 }
@@ -113,17 +114,9 @@ dialog::backdrop {
   backdrop-filter: blur(10px);
 }
 
-#start {
-  background: var(--clr-white-bg);
-  max-width: fit-content;
-  justify-self: center;
-  padding: 0.5em 2em;
-  border: 1px solid var(--clr-highlight);
-  border-radius: 1em;
-}
-
 #scoreboard {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
 }
@@ -135,8 +128,9 @@ dialog::backdrop {
 
 #game_board {
   display: grid;
-  grid-template-columns: repeat(5, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(max(150px, 100% / 6), 1fr));
+  gap: 1em;
+  justify-content: center;
 }
 
 .pokemon-card {
@@ -147,7 +141,7 @@ dialog::backdrop {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 1em;
 
   transition: transform 450ms, border-color 450ms, box-shadow 450ms,
     border-width 450ms;
@@ -172,4 +166,11 @@ dialog::backdrop {
 
 #reset_game_btn:hover {
   transform: scale(1.1);
+}
+
+@media screen and (min-width: 900px) {
+  #game_board {
+    max-width: 80%;
+    margin: 0 auto;
+  }
 }
