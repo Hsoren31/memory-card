@@ -1,19 +1,22 @@
-import { createPortal } from "react-dom";
+import { useEffect, useRef } from "react";
 
-export default function Modal({ resetGame, message }) {
-  let endText = "Game over.";
-  if (message) {
-    endText = "Game won!";
-  }
-  return createPortal(
-    <section className="modal-bg">
-      <div id="modal">
-        <h2>{endText}</h2>
-        <button id="reset_game_btn" onClick={() => resetGame()}>
-          Retry
-        </button>
-      </div>
-    </section>,
-    document.body
+function Modal({ openModal, closeModal, children }) {
+  const ref = useRef();
+
+  useEffect(() => {
+    if (openModal) {
+      ref.current?.showModal();
+    } else {
+      ref.current?.close();
+    }
+  }, [openModal]);
+
+  return (
+    <dialog ref={ref} onCancel={closeModal} className="modal">
+      {children}
+      <button onClick={closeModal}>Close</button>
+    </dialog>
   );
 }
+
+export default Modal;

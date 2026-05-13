@@ -94,24 +94,23 @@ footer {
 }
 
 .modal {
-  background-color: var(--clr-gray-bg);
-  border: 2px solid var(--clr-highlight);
-
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
+  background-color: var(--clr-gray-bg);
+  border-radius: 1em;
+  border: 2px solid var(--clr-highlight);
+  padding: 1em 2em;
+
   display: grid;
   gap: 1em;
-  padding: 1.25em;
-  max-width: 60%;
+}
 
-  h2,
-  h3 {
-    font-weight: 700;
-    font-size: 1.25rem;
-  }
+dialog::backdrop {
+  background-color: var(--clr-overlay);
+  backdrop-filter: blur(10px);
 }
 
 #start {
@@ -162,35 +161,6 @@ footer {
 
   transition: transform 125ms;
   transform: translateY(-10px);
-}
-
-.modal-bg {
-  background-color: var(--clr-overlay);
-  backdrop-filter: blur(10px);
-
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-
-#modal {
-  background-color: #fff;
-  font-size: var(--fs-500);
-  border-radius: 1em;
-
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 3rem;
 }
 
 #reset_game_btn {

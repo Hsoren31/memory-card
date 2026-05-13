@@ -1,9 +1,8 @@
 /* Here we will retrieve the pokemon data */
 import { useEffect, useState } from "react";
-import IntroModal from "./IntroModal";
+import Modal from "./Modal";
 import Card from "./Card";
 import Scoreboard from "./Scoreboard";
-import Modal from "./Modal";
 
 const PokemonList = [
   "pikachu",
@@ -46,7 +45,7 @@ function Game() {
   const [clickedPokemon, setClickedPokemon] = useState([]);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showEndGame, setShowEndGame] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -94,7 +93,7 @@ function Game() {
     if (score > bestScore) {
       setBestScore(score);
     }
-    setShowModal(true);
+    setShowEndGame(true);
   }
 
   function handleClick({ id }) {
@@ -114,7 +113,7 @@ function Game() {
   }
 
   function resetGame() {
-    setShowModal(false);
+    setShowEndGame(false);
     setClickedPokemon([]);
     setScore(0);
     setGameWon(false);
@@ -126,14 +125,35 @@ function Game() {
 
   return (
     <>
-      {showIntroModal && <IntroModal close={closeIntroModal} />}
+      {showIntroModal && (
+        <Modal openModal={showIntroModal} closeModal={closeIntroModal}>
+          <h2>Welcome!</h2>
+          <p>
+            Memory Card is a game to test your memory. You will be presented
+            with a deck of Pokemon characters. Your goal is to select all of
+            them just once. The trick is that once you select a character the
+            deck will be shuffled.
+          </p>
+          <div className="how-to-play">
+            <h3>How to Play:</h3>
+            <p>
+              Click on any of the Pokemon to start the game. The game will end
+              if you successfully select all of the Pokemon once.
+            </p>
+          </div>
+        </Modal>
+      )}
       <Scoreboard score={score} bestScore={bestScore} />
       <div id="game_board">
         {pokemonData.map((pokemon) => (
           <Card {...pokemon} key={pokemon.id} handleClick={handleClick} />
         ))}
       </div>
-      {showModal && <Modal resetGame={resetGame} message={gameWon} />}
+      {showEndGame && (
+        <Modal openModal={showEndGame} closeModal={resetGame}>
+          <p>{gameWon ? "Game Won!!" : "Game Over."}</p>
+        </Modal>
+      )}
     </>
   );
 }
