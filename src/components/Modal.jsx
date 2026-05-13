@@ -6,7 +6,7 @@ export default function Modal({ resetGame, message }) {
     endText = "Game won!";
   }
   return createPortal(
-    <section id="modal_bg">
+    <section className="modal-bg">
       <div id="modal">
         <h2>{endText}</h2>
         <button id="reset_game_btn" onClick={() => resetGame()}>

@@ -1,5 +1,6 @@
 /* Here we will retrieve the pokemon data */
 import { useEffect, useState } from "react";
+import IntroModal from "./IntroModal";
 import Card from "./Card";
 import Scoreboard from "./Scoreboard";
 import Modal from "./Modal";
@@ -40,6 +41,7 @@ function shuffleArray(array) {
 /*Get data from each pokemon in PokemonList */
 
 function Game() {
+  const [showIntroModal, setShowIntroModal] = useState(true);
   const [pokemonData, setPokemonData] = useState([]);
   const [clickedPokemon, setClickedPokemon] = useState([]);
   const [score, setScore] = useState(0);
@@ -78,6 +80,10 @@ function Game() {
 
     fetchData();
   }, []);
+
+  function closeIntroModal() {
+    setShowIntroModal(false);
+  }
 
   function shufflePokemon() {
     const shuffled = shuffleArray(pokemonData);
@@ -120,6 +126,7 @@ function Game() {
 
   return (
     <>
+      {showIntroModal && <IntroModal close={closeIntroModal} />}
       <Scoreboard score={score} bestScore={bestScore} />
       <div id="game_board">
         {pokemonData.map((pokemon) => (

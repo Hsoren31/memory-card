@@ -93,6 +93,36 @@ footer {
   margin-top: 3em;
 }
 
+.modal {
+  background-color: var(--clr-gray-bg);
+  border: 2px solid var(--clr-highlight);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: grid;
+  gap: 1em;
+  padding: 1.25em;
+  max-width: 60%;
+
+  h2,
+  h3 {
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+}
+
+#start {
+  background: var(--clr-white-bg);
+  max-width: fit-content;
+  justify-self: center;
+  padding: 0.5em 2em;
+  border: 1px solid var(--clr-highlight);
+  border-radius: 1em;
+}
+
 #scoreboard {
   display: flex;
   justify-content: center;
@@ -134,10 +164,11 @@ footer {
   transform: translateY(-10px);
 }
 
-#modal_bg {
+.modal-bg {
   background-color: var(--clr-overlay);
+  backdrop-filter: blur(10px);
 
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
